@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyntraWeb", "MyntraWeb\MyntraWeb.csproj", "{2C3352CE-3E5D-4640-A9DA-DD25E63188FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C3352CE-3E5D-4640-A9DA-DD25E63188FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C3352CE-3E5D-4640-A9DA-DD25E63188FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C3352CE-3E5D-4640-A9DA-DD25E63188FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C3352CE-3E5D-4640-A9DA-DD25E63188FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C24DF0D6-25EA-4916-9B83-A059AB46A388}
+	EndGlobalSection
+EndGlobal
