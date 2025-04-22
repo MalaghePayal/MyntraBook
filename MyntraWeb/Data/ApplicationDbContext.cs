@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyntraWeb.Models;
 
 namespace MyntraWeb.Data
 {
@@ -8,7 +9,7 @@ namespace MyntraWeb.Data
         {
             
         }
-
+        public DbSet<Category>  Categories { get; set; }
 
     }
 }
