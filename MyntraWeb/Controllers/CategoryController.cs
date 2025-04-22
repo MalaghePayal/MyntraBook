@@ -18,5 +18,23 @@ namespace MyntraWeb.Controllers
 
             return View(objCategoryList);
         }
+        [HttpGet]
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create([Bind("Name,DisplayOrder")] Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Categories.Add(category);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
     }
 }
