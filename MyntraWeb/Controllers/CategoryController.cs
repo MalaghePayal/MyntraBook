@@ -80,5 +80,41 @@ namespace MyntraWeb.Controllers
             return View(obj);
 
         }
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+
+            }
+            Category? categoryFromDb = _context.Categories.Find(id);
+            //Category? categoryFromDb1 = _context.Categories.FirstOrDefault(u => u.Id == id);
+            //Category? categoryFromDb2 = _context.Categories.Where(u => u.Id == id).FirstOrDefault();
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+
+            }
+
+            return View(categoryFromDb);
+
+        }
+        [HttpPost,ActionName("Delete")]
+        public IActionResult DeletePost(int? id)
+        {
+            Category? obj = _context.Categories.Find(id);
+            if (obj ==null)
+            {
+                return NotFound();
+
+            }
+                _context.Categories.Remove(obj);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+          
+
+        }
     }
 }
