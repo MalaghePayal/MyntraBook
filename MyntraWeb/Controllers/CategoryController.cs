@@ -26,21 +26,59 @@ namespace MyntraWeb.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create([Bind("Name,DisplayOrder")] Category category)
+        public IActionResult Create([Bind("Name,DisplayOrder")] Category obj)
         {
-            if (category.Name== category.DisplayOrder.ToString())
+            if (obj.Name== obj.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("name", "The Displayorder can not exactly match the Name");
 
             }
             if (ModelState.IsValid)
             {
-                _context.Categories.Add(category);
+                _context.Categories.Add(obj);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View();
+        }
+        [HttpGet]
+        public IActionResult Edit(int? id) 
+        {
+            if (id==null || id==0)
+            {
+                return NotFound();
+
+            }
+            Category? categoryFromDb = _context.Categories.Find(id);
+            //Category? categoryFromDb1 = _context.Categories.FirstOrDefault(u => u.Id == id);
+            //Category? categoryFromDb2 = _context.Categories.Where(u => u.Id == id).FirstOrDefault();
+            if (categoryFromDb ==null)
+            {
+                return NotFound();
+
+            }
+
+            return View(categoryFromDb);
+        
+        }
+        [HttpPost]
+        public IActionResult Edit([Bind("Id,Name,DisplayOrder")] Category obj)
+        {
+            if (obj.Name == obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("name", "The Displayorder can not exactly match the Name");
+
+            }
+            if (ModelState.IsValid)
+            {
+                _context.Categories.Update(obj);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
+
         }
     }
 }
