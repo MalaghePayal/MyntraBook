@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Myntra.DataAccess.Repository.IRepository
 {
-    internal interface IRepository<T> where T:class
+    public interface IRepository<T> where T:class
     {
         //T will be Category for any other generic model on which we want to perform CRUD
         IEnumerable<T> GetAll();
