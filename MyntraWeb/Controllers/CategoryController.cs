@@ -37,6 +37,7 @@ namespace MyntraWeb.Controllers
             {
                 _context.Categories.Add(obj);
                 _context.SaveChanges();
+                TempData["Success"] = "Category Created Successfully";
                 return RedirectToAction("Index");
             }
 
@@ -74,6 +75,7 @@ namespace MyntraWeb.Controllers
             {
                 _context.Categories.Update(obj);
                 _context.SaveChanges();
+                TempData["Success"] = "Category Updated Successfully";
                 return RedirectToAction("Index");
             }
 
@@ -112,7 +114,8 @@ namespace MyntraWeb.Controllers
             }
                 _context.Categories.Remove(obj);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+            TempData["Success"] = "Category Deleted Successfully";
+            return RedirectToAction("Index");
           
 
         }

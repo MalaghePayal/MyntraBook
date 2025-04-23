@@ -1,5 +1,9 @@
 ﻿@model List<Category>
-
+@if (TempData["Success"] != null)
+{
+    <h2>@TempData["Success"]</h2>
+    
+}
 
 
 <div class="container">
