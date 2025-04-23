@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyntraWeb", "MyntraWeb\MyntraWeb.csproj", "{2C3352CE-3E5D-4640-A9DA-DD25E63188FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyntraWeb", "MyntraWeb\MyntraWeb.csproj", "{2C3352CE-3E5D-4640-A9DA-DD25E63188FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myntra.DataAccess", "Myntra.DataAccess\Myntra.DataAccess.csproj", "{B22C5ED1-FEF6-4A8C-A6DB-7F3F7AA4F5AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myntra.Models", "Myntra.Models\Myntra.Models.csproj", "{EAE5C6EA-A124-43F3-A5F1-C4A3C17BFB58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myntra.Utility", "Myntra.Utility\Myntra.Utility.csproj", "{5761E955-DEF3-4F91-B4DC-D274B2E26C30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{2C3352CE-3E5D-4640-A9DA-DD25E63188FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C3352CE-3E5D-4640-A9DA-DD25E63188FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C3352CE-3E5D-4640-A9DA-DD25E63188FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B22C5ED1-FEF6-4A8C-A6DB-7F3F7AA4F5AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B22C5ED1-FEF6-4A8C-A6DB-7F3F7AA4F5AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B22C5ED1-FEF6-4A8C-A6DB-7F3F7AA4F5AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B22C5ED1-FEF6-4A8C-A6DB-7F3F7AA4F5AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAE5C6EA-A124-43F3-A5F1-C4A3C17BFB58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAE5C6EA-A124-43F3-A5F1-C4A3C17BFB58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAE5C6EA-A124-43F3-A5F1-C4A3C17BFB58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAE5C6EA-A124-43F3-A5F1-C4A3C17BFB58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5761E955-DEF3-4F91-B4DC-D274B2E26C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5761E955-DEF3-4F91-B4DC-D274B2E26C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5761E955-DEF3-4F91-B4DC-D274B2E26C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5761E955-DEF3-4F91-B4DC-D274B2E26C30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
