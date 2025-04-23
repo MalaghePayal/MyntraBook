@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using MyntraWeb.Data;
+using Myntra.DataAccess.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

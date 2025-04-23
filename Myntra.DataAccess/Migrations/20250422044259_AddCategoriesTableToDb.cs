@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MyntraWeb.Migrations
+namespace Myntra.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoriesTableToDb : Migration

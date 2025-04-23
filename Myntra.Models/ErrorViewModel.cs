@@ -1,4 +1,4 @@
-namespace MyntraWeb.Models
+namespace Myntra.Models
 {
     public class ErrorViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using MyntraWeb.Data;
-using MyntraWeb.Models;
+using Myntra.DataAccess.Data;
+using Myntra.Models;
 
 namespace MyntraWeb.Controllers
 {

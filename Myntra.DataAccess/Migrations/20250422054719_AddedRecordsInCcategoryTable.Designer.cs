@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MyntraWeb.Data;
+using Myntra.DataAccess.Data;
+
 
 #nullable disable
 
-namespace MyntraWeb.Migrations
+namespace Myntra.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250422054719_AddedRecordsInCcategoryTable")]

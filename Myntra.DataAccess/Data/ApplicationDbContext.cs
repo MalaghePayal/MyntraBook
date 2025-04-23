@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyntraWeb.Models;
+using Myntra.Models;
 
-namespace MyntraWeb.Data
+namespace Myntra.DataAccess.Data
 {
     public class ApplicationDbContext: DbContext
     {

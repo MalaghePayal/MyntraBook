@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MyntraWeb.Models;
+using Myntra.Models;
 using System.Diagnostics;
 
 namespace MyntraWeb.Controllers

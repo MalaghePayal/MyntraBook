@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MyntraWeb.Migrations
+namespace Myntra.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddedRecordsInCcategoryTable : Migration
