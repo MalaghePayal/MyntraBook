@@ -4,7 +4,7 @@ using Myntra.DataAccess.Data;
 using Myntra.DataAccess.Repository.IRepository;
 using Myntra.Models;
 
-namespace MyntraWeb.Controllers
+namespace MyntraWeb.Areas.Admin.Controllers
 {
     public class CategoryController : Controller
     {
@@ -29,7 +29,7 @@ namespace MyntraWeb.Controllers
         [HttpPost]
         public IActionResult Create([Bind("Name,DisplayOrder")] Category obj)
         {
-            if (obj.Name== obj.DisplayOrder.ToString())
+            if (obj.Name == obj.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("name", "The Displayorder can not exactly match the Name");
 
@@ -45,24 +45,24 @@ namespace MyntraWeb.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Edit(int? id) 
+        public IActionResult Edit(int? id)
         {
-            if (id==null || id==0)
+            if (id == null || id == 0)
             {
                 return NotFound();
 
             }
-            Category? categoryFromDb = _categoryRepo.Get(u=>u.Id ==id);
+            Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
             //Category? categoryFromDb1 = _context.Categories.FirstOrDefault(u => u.Id == id);
             //Category? categoryFromDb2 = _context.Categories.Where(u => u.Id == id).FirstOrDefault();
-            if (categoryFromDb ==null)
+            if (categoryFromDb == null)
             {
                 return NotFound();
 
             }
 
             return View(categoryFromDb);
-        
+
         }
         [HttpPost]
         public IActionResult Edit([Bind("Id,Name,DisplayOrder")] Category obj)
@@ -92,7 +92,7 @@ namespace MyntraWeb.Controllers
                 return NotFound();
 
             }
-            Category? categoryFromDb = _categoryRepo.Get(u=>u.Id==id);
+            Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
             //Category? categoryFromDb1 = _context.Categories.FirstOrDefault(u => u.Id == id);
             //Category? categoryFromDb2 = _context.Categories.Where(u => u.Id == id).FirstOrDefault();
             if (categoryFromDb == null)
@@ -104,11 +104,11 @@ namespace MyntraWeb.Controllers
             return View(categoryFromDb);
 
         }
-        [HttpPost,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            Category? obj = _categoryRepo.Get(u=>u.Id==id);
-            if (obj ==null)
+            Category? obj = _categoryRepo.Get(u => u.Id == id);
+            if (obj == null)
             {
                 return NotFound();
 
@@ -117,7 +117,7 @@ namespace MyntraWeb.Controllers
             _categoryRepo.Save();
             TempData["Success"] = "Category Deleted Successfully";
             return RedirectToAction("Index");
-          
+
 
         }
     }

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Myntra.Models;
 using System.Diagnostics;
 
-namespace MyntraWeb.Controllers
+namespace MyntraWeb.Areas.Customer.Controllers
 {
     public class HomeController : Controller
     {
