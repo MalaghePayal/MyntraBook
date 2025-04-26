@@ -20,7 +20,18 @@ namespace Myntra.DataAccess.Data
                 );
 
             modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 1, Title = "Fortune of Time", Description = "XYZ", ISBN = "SWD9999001", Author = "Billy Spark", ListPrice = 99, Price1to50 = 90, Price50to100 = 85, Price100 = 80 });
+                new Product { 
+                    Id = 1, 
+                    Title = "Fortune of Time",
+                    Description = "XYZ",
+                    ISBN = "SWD9999001", 
+                    Author = "Billy Spark", 
+                    ListPrice = 99, 
+                    Price1to50 = 90, 
+                    Price50to100 = 85, 
+                    Price100 = 80 ,
+                    CategoryId = 1
+                });
         }
 
         
