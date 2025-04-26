@@ -7,7 +7,7 @@ using Myntra.DataAccess.Data;
 
 #nullable disable
 
-namespace MyntraWeb.DataAccess.Migrations
+namespace Myntra.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -85,6 +85,10 @@ namespace MyntraWeb.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
@@ -115,6 +119,7 @@ namespace MyntraWeb.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "XYZ",
                             ISBN = "SWD9999001",
+                            ImageUrl = "",
                             ListPrice = 99.0,
                             Price100 = 80.0,
                             Price1to50 = 90.0,

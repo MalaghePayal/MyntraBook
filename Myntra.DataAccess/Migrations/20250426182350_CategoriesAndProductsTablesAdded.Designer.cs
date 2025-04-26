@@ -11,8 +11,8 @@ using Myntra.DataAccess.Data;
 namespace Myntra.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250426180252_Add foreign key for categoryproductrelation")]
-    partial class Addforeignkeyforcategoryproductrelation
+    [Migration("20250426182350_CategoriesAndProductsTablesAdded")]
+    partial class CategoriesAndProductsTablesAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,6 +88,10 @@ namespace Myntra.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
@@ -118,6 +122,7 @@ namespace Myntra.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "XYZ",
                             ISBN = "SWD9999001",
+                            ImageUrl = "",
                             ListPrice = 99.0,
                             Price100 = 80.0,
                             Price1to50 = 90.0,

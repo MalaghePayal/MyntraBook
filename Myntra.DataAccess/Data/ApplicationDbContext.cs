@@ -30,7 +30,8 @@ namespace Myntra.DataAccess.Data
                     Price1to50 = 90, 
                     Price50to100 = 85, 
                     Price100 = 80 ,
-                    CategoryId = 1
+                    CategoryId = 1,
+                    ImageUrl=""
                 });
         }
 
