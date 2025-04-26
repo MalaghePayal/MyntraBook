@@ -12,48 +12,56 @@
         <div asp-validation-summary="All">
         </div>
        
-        <div class="mb-3 row p-2">
-            <label class="p-0" asp-for="Title">Title</label>
-            <input asp-for="Title" class="form-control" />
+        <div class="form-floating py-2 col-12">
+            <label class="ms-2" asp-for="Title">Title</label>
+            <input asp-for="Title" class="form-control border-0 shadow" />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
-        <div class="mb-3 row p-2">
-            <label class="p-0" asp-for="Description">Description</label>
-            <input asp-for="Description" class="form-control" />
+        <div class="form-floating py-2 col-12">
+            
+            <label class="ms-2" asp-for="Description">Description</label>
+            <textarea asp-for="Description" class="form-control border-0 shadow">Description</textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
-        <div class="mb-3 row p-2">
-            <label class="p-0" asp-for="ISBN">ISBN</label>
-            <input asp-for="ISBN" class="form-control" />
+        <div class="form-floating py-2 col-12">
+            <label class="ms-2" asp-for="ISBN">ISBN</label>
+            <input asp-for="ISBN" class="form-control border-0 shadow" />
             <span asp-validation-for="ISBN" class="text-danger"></span>
         </div>
-        <div class="mb-3 row p-2">
-            <label class="p-0" asp-for="Author">Author</label>
-            <input asp-for="Author" class="form-control" />
+        <div class="form-floating py-2 col-12">
+            <label class="ms-2" asp-for="Author">Author</label>
+            <input asp-for="Author" class="form-control border-0 shadow" />
             <span asp-validation-for="Author" class="text-danger"></span>
         </div>
-        <div class="mb-3 row p-2">
-            <label class="p-0" asp-for="ListPrice">ListPrice</label>
-            <input asp-for="ListPrice" class="form-control" />
+        <div class="form-floating py-2 col-12">
+            <label class="ms-2" asp-for="ListPrice">ListPrice</label>
+            <input asp-for="ListPrice" class="form-control border-0 shadow" />
             <span asp-validation-for="ListPrice" class="text-danger"></span>
         </div>
-        <div class="mb-3 row p-2">
-            <label class="p-0" asp-for="Price1to50">Price1to50</label>
-            <input asp-for="Price1to50" class="form-control" />
+        <div class="form-floating py-2 col-12">
+            <label class="ms-2" asp-for="Price1to50">Price1to50</label>
+            <input asp-for="Price1to50" class="form-control border-0 shadow" />
             <span asp-validation-for="Price1to50" class="text-danger"></span>
         </div>
-        <div class="mb-3 row p-2">
-            <label class="p-0" asp-for="Price50to100">Price50to100 </label>
-            <input asp-for="Price50to100" class="form-control" />
+        <div class="form-floating py-2 col-12">
+            <label class="ms-2" asp-for="Price50to100">Price50to100 </label>
+            <input asp-for="Price50to100" class="form-control border-0 shadow" />
             <span asp-validation-for="Price50to100" class="text-danger"></span>
         </div>
-        <div class="mb-3 row p-2">
-            <label class="p-0" asp-for="Price100">Price100</label>
-            <input asp-for="Price100" class="form-control" />
+        <div class="form-floating py-2 col-12">
+            <label class="ms-2" asp-for="Price100">Price100</label>
+            <input asp-for="Price100" class="form-control border-0 shadow" />
             <span asp-validation-for="Price100" class="text-danger"></span>
         </div>
 
-
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-primary">Update Product</button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary form-control">Back to List </a>
+            </div>
+        </div>
 
     </div>
 </form>
