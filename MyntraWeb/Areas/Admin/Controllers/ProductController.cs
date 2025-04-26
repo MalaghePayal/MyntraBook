@@ -89,7 +89,7 @@ namespace MyntraWeb.Areas.Admin.Controllers
                 return NotFound();
 
             }
-            Category? productFromDb = _unitOfWork.categoryRepository.Get(u => u.Id == id);
+            Product? productFromDb = _unitOfWork.productRepository.Get(u => u.Id == id);
             //Category? categoryFromDb1 = _context.Categories.FirstOrDefault(u => u.Id == id);
             //Category? categoryFromDb2 = _context.Categories.Where(u => u.Id == id).FirstOrDefault();
             if (productFromDb == null)
