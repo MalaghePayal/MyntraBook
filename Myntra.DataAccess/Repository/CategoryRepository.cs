@@ -21,10 +21,7 @@ ICategoryRepository is an interface that defines additional operations specific 
         {
             _context = context;
         }
-        public void Save()
-        {
-           _context.SaveChanges();
-        }
+        
 
         public void Update(Category obj)
         {
