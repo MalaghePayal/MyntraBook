@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Myntra.DataAccess.Data;
 using Myntra.DataAccess.Repository;
 using Myntra.DataAccess.Repository.IRepository;
 using Myntra.Models;
+using System.Collections.Generic;
 
 namespace MyntraWeb.Areas.Admin.Controllers
 {
@@ -18,23 +20,36 @@ namespace MyntraWeb.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Product> objProductList = _unitOfWork.productRepository.GetAll().ToList();
-
+            
             return View(objProductList);
         }
         [HttpGet]
         public IActionResult Create()
         {
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.categoryRepository.GetAll().ToList().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
 
+            });
+            ViewBag.CategoryList = CategoryList;
             return View();
         }
         [HttpPost]
-        public IActionResult Create([Bind("Title,Description,ISBN,Author,ListPrice,Price1to50,Price50to100,Price100")] Product obj)
+        public IActionResult Create([Bind("Title,Description,ISBN,Author,ListPrice,Price1to50,Price50to100,Price100,CategoryId,ImageUrl")] Product obj)
         {
-        //    if (obj.Name == obj.DisplayOrder.ToString())
-        //    {
-        //        ModelState.AddModelError("name", "The Displayorder can not exactly match the Name");
+            //    if (obj.Name == obj.DisplayOrder.ToString())
+            //    {
+            //        ModelState.AddModelError("name", "The Displayorder can not exactly match the Name");
 
-        //    }
+            //    }
+            if (!ModelState.IsValid)
+            {
+                ViewBag.CategoryList = _unitOfWork.categoryRepository
+                    .GetAll()
+                    .Select(u => new SelectListItem { Text = u.Name, Value = u.Id.ToString() });
+                return View(obj);
+            }
             if (ModelState.IsValid)
             {
                 _unitOfWork.productRepository.Add(obj);
@@ -66,7 +81,7 @@ namespace MyntraWeb.Areas.Admin.Controllers
 
         }
         [HttpPost]
-        public IActionResult Edit([Bind("Id,Title,Description,ISBN,Author,ListPrice,Price1to50,Price50to100,Price100")] Product obj)
+        public IActionResult Edit([Bind("Id,Title,Description,ISBN,Author,ListPrice,Price1to50,Price50to100,Price100,CategoryId,ImageUrl")] Product obj)
         {
            
             if (ModelState.IsValid)
