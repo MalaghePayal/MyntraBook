@@ -5,6 +5,7 @@ using Myntra.DataAccess.Data;
 using Myntra.DataAccess.Repository;
 using Myntra.DataAccess.Repository.IRepository;
 using Myntra.Models;
+using Myntra.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace MyntraWeb.Areas.Admin.Controllers
@@ -26,39 +27,44 @@ namespace MyntraWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            IEnumerable<SelectListItem> CategoryList = _unitOfWork.categoryRepository.GetAll().ToList().Select(u => new SelectListItem
+            ProductViewModel ProductVM = new()
             {
-                Text = u.Name,
-                Value = u.Id.ToString()
+                CategoryList =  _unitOfWork.categoryRepository.GetAll().ToList().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
 
-            });
-            ViewBag.CategoryList = CategoryList;
-            return View();
+                }),
+                Product = new Product()
+            };
+            return View(ProductVM);
         }
         [HttpPost]
-        public IActionResult Create([Bind("Title,Description,ISBN,Author,ListPrice,Price1to50,Price50to100,Price100,CategoryId,ImageUrl")] Product obj)
+        public IActionResult Create( ProductViewModel ProductVM)
         {
-            //    if (obj.Name == obj.DisplayOrder.ToString())
-            //    {
-            //        ModelState.AddModelError("name", "The Displayorder can not exactly match the Name");
-
-            //    }
-            if (!ModelState.IsValid)
-            {
-                ViewBag.CategoryList = _unitOfWork.categoryRepository
-                    .GetAll()
-                    .Select(u => new SelectListItem { Text = u.Name, Value = u.Id.ToString() });
-                return View(obj);
-            }
+            
+            
             if (ModelState.IsValid)
             {
-                _unitOfWork.productRepository.Add(obj);
+                _unitOfWork.productRepository.Add(ProductVM.Product);
                 _unitOfWork.Save();
                 TempData["Success"] = "Product Created Successfully";
                 return RedirectToAction("Index");
             }
+            else
+            {
+                ProductVM.CategoryList = _unitOfWork.categoryRepository.GetAll().ToList().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
 
-            return View();
+                });
+                    
+              
+                return View(ProductVM);
+            }
+
+            
         }
         [HttpGet]
         public IActionResult Edit(int? id)
