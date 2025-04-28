@@ -25,7 +25,7 @@ namespace MyntraWeb.Areas.Admin.Controllers
             return View(objProductList);
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
             ProductViewModel ProductVM = new()
             {
@@ -37,19 +37,42 @@ namespace MyntraWeb.Areas.Admin.Controllers
                 }),
                 Product = new Product()
             };
-            return View(ProductVM);
+            if (id==null ||id==0)
+            {
+                //create
+                return View(ProductVM);
+            }
+            else
+            {
+                //update
+                ProductVM.Product = _unitOfWork.productRepository.Get(u => u.Id==id);
+                return View(ProductVM);
+            }
+            
         }
         [HttpPost]
-        public IActionResult Create( ProductViewModel ProductVM)
+        public IActionResult Upsert( ProductViewModel ProductVM,IFormFile? file)
         {
             
             
             if (ModelState.IsValid)
             {
-                _unitOfWork.productRepository.Add(ProductVM.Product);
-                _unitOfWork.Save();
-                TempData["Success"] = "Product Created Successfully";
-                return RedirectToAction("Index");
+                if (ProductVM.Product.Id ==0)
+                {
+                    _unitOfWork.productRepository.Add(ProductVM.Product);
+                    _unitOfWork.Save();
+                    TempData["Success"] = "Product Created Successfully";
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    _unitOfWork.productRepository.Update(ProductVM.Product);
+                    _unitOfWork.Save();
+                    TempData["Success"] = "Product Updated Successfully";
+                    return RedirectToAction("Index");
+                }
+              
             }
             else
             {
@@ -66,42 +89,7 @@ namespace MyntraWeb.Areas.Admin.Controllers
 
             
         }
-        [HttpGet]
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-
-            }
-            Product? productFromDb = _unitOfWork.productRepository.Get(u => u.Id == id);
-            //Category? categoryFromDb1 = _context.Categories.FirstOrDefault(u => u.Id == id);
-            //Category? categoryFromDb2 = _context.Categories.Where(u => u.Id == id).FirstOrDefault();
-            if (productFromDb == null)
-            {
-                return NotFound();
-
-            }
-
-            return View(productFromDb);
-
-        }
-        [HttpPost]
-        public IActionResult Edit([Bind("Id,Title,Description,ISBN,Author,ListPrice,Price1to50,Price50to100,Price100,CategoryId,ImageUrl")] Product obj)
-        {
-           
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.productRepository.Update(obj);
-                _unitOfWork.Save();
-                TempData["Success"] = "Product Updated Successfully";
-                return RedirectToAction("Index");
-            }
-
-            return View(obj);
-
-        }
-
+        
         [HttpGet]
         public IActionResult Delete(int? id)
         {

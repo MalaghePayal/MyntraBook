@@ -1,10 +1,13 @@
 ﻿@model ProductViewModel
 
 
-<form asp-controller="Product" asp-action="Create" method="post" enctype="multipart/form-data">
+<form asp-controller="Product" asp-action="Upsert" method="post" enctype="multipart/form-data">
+    <input  asp-for="Product.Id" hidden/>
     <div class="border p-3 mt-4">
        <div class="row pb-2">
-            <h2>Create Product</h2>
+            <h2>
+                @(Model.Product.Id != 0 ? "Update": "Create") Product
+                </h2>
             <hr />
 
        </div>
@@ -61,13 +64,24 @@
         </div>
         <div class="mb-3 row p-2">
             <label asp-for="Product.ImageUrl">Image URL</label>
-            <input type="file" class="form-control" accept=".jpg,.jpeg,.png,.gif" />
+            <input type="file" asp-for="Product.ImageUrl" class="form-control" accept=".jpg,.jpeg,.png,.gif" />
            
         </div>
         <div class="row">
-            <div class="col-6 col-md-3">
-                <button type="submit" class="btn btn-primary">Create Product</button>
-            </div>
+            @if (Model.Product.Id !=0)
+            {
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-primary">Update Product</button>
+                </div>
+
+            }
+            else
+            {
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-primary">Create Product</button>
+                </div>
+            }
+            
             <div class="col-6 col-md-3">
                 <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary form-control">Back to List </a>
             </div>
