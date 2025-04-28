@@ -48,7 +48,7 @@ namespace MyntraWeb.Areas.Admin.Controllers
             else
             {
                 //update
-                ProductVM.Product = _unitOfWork.productRepository.Get(u => u.Id==id);
+                ProductVM.Product = _unitOfWork.productRepository.Get(u => u.Id==id, includeProperties: "category");
                 return View(ProductVM);
             }
             
