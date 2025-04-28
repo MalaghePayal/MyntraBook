@@ -23,7 +23,7 @@ namespace MyntraWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.productRepository.GetAll().ToList();
+            List<Product> objProductList = _unitOfWork.productRepository.GetAll(includeProperties:"category").ToList();
             
             return View(objProductList);
         }

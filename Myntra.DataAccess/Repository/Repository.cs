@@ -18,8 +18,9 @@ namespace Myntra.DataAccess.Repository
         public Repository(ApplicationDbContext context)
         {
             _context = context;
-            this.dbSet= _context.Set<T>(); 
+            this.dbSet= _context.Set<T>();
             //_context.Categories ==deSet 
+            _context.Products.Include(u => u.category).Include(u=>u.CategoryId);
         }
         public void Add(T entity)
         {
@@ -27,16 +28,47 @@ namespace Myntra.DataAccess.Repository
             dbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter)
+        public T Get(Expression<Func<T, bool>> filter,string? includeProperties)
         {
             IQueryable<T> query = dbSet;
-            query = query.Where(filter);
+            query = query.Where(filter); 
+            if (string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in
+                    includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll()
+        //public IEnumerable<T> GetAll(string? includeProperties =null)
+        //{
+        //    IQueryable<T> query = dbSet;
+        //    if (string.IsNullOrEmpty(includeProperties))
+        //    {
+        //        foreach(var includeProp in 
+        //            includeProperties.Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries))
+        //        {
+        //            query = query.Include(includeProp);
+        //        }
+        //    }
+        //    return query.ToList();
+        //}
+        public IEnumerable<T> GetAll(string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
+
+            // Include the related properties correctly
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+
             return query.ToList();
         }
 
