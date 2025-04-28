@@ -7,6 +7,7 @@ using Myntra.DataAccess.Repository.IRepository;
 using Myntra.Models;
 using Myntra.Models.ViewModels;
 using System.Collections.Generic;
+using System.IO;
 
 namespace MyntraWeb.Areas.Admin.Controllers
 {
@@ -64,13 +65,26 @@ namespace MyntraWeb.Areas.Admin.Controllers
                 {
                     string fileName = Guid.NewGuid().ToString()+ Path.GetExtension(file.FileName);    
                     string ProductPath = Path.Combine(wwwRootPath, @"images\product");
-
-                    using(var fileStream = new FileStream(Path.Combine(ProductPath, fileName),FileMode.Create))
+                    if (!string.IsNullOrEmpty(ProductVM.Product.ImageUrl))
+                    {
+                        // i.e. we are updating old image with new one. bcz we are checking if file name is not empty (file!=null)and imageurl is not empty
+                        //so delete the old image first 
+                        //old image is saved in product table with \\ append to it at start so trim this backslash
+                        //\images\product\27e5a121-ae9b-4534-9bfd-d5b410b7fc09.jpg saved file in products table 
+                        var oldImagePath = Path.Combine(wwwRootPath, ProductVM.Product.ImageUrl.TrimStart('\\'));
+                        //now delete that old image
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    using (var fileStream = new FileStream(Path.Combine(ProductPath, fileName),FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
                     ProductVM.Product.ImageUrl = @"\images\product\" + fileName;
                 }
+                
 
                 if (ProductVM.Product.Id ==0)
                 {
