@@ -20,7 +20,11 @@ namespace MyntraWeb.Areas.Customer.Controllers
             IEnumerable<Product> ProductList = _unitOfWork.productRepository.GetAll(includeProperties:"category"); 
             return View(ProductList);
         }
-
+        public IActionResult Details(int productId)
+        {
+           Product Product = _unitOfWork.productRepository.Get(u=>u.Id== productId, includeProperties: "category");
+            return View(Product);
+        }
         public IActionResult Privacy()
         {
             return View();
