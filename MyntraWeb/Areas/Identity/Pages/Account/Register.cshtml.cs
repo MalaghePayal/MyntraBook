@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Myntra.DataAccess.Repository.IRepository;
 using Myntra.Models;
 using Myntra.Utility;
 
@@ -34,14 +35,16 @@ namespace MyntraWeb.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-
+        private readonly IUnitOfWork   _unitOfWork;
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUnitOfWork unitOfWork // Dependency injection for Unit of Work to interact with the database
+            )
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -50,6 +53,7 @@ namespace MyntraWeb.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _unitOfWork = unitOfWork;// Dependency injection for Unit of Work to interact with the database
         }
 
         /// <summary>
@@ -121,7 +125,9 @@ namespace MyntraWeb.Areas.Identity.Pages.Account
             public string? State { get; set; }
             public string? PostalCode { get; set; }
             public string? PhoneNumber { get; set; }
-
+            public int? CompanyId { get; set; }
+            [ValidateNever] // Prevents model validation on this list since it's populated server-side
+            public IEnumerable<SelectListItem> CompanyList { get; set; }
         }
 
 
@@ -143,6 +149,14 @@ namespace MyntraWeb.Areas.Identity.Pages.Account
                 {
                     Text = i,
                      Value = i
+                }),
+                // Populate the company list with companies fetched from the database
+        // 'GetAll' method retrieves all companies from the database
+        // Each company is transformed into a SelectListItem for use in the dropdown
+                CompanyList = _unitOfWork.companyRepository.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,// Display the company name
+                    Value = i.Id.ToString()// Set the company's ID as the value
                 })
             };
 
