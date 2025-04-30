@@ -37,28 +37,29 @@ namespace MyntraWeb.Areas.Customer.Controllers
         [HttpPost]
         [Authorize]
         public IActionResult Details(ShoppingCart shoppingCart )
-        {
+        {  // Retrieve the current logged-in user's ID
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var UserId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             shoppingCart.ApplicationUserId = UserId;
-
+            // Check if the same product is already in the user's shopping cart
             ShoppingCart cartFromDb = _unitOfWork.shoppingCartRepository.Get(u=>u.ApplicationUserId==UserId && u.ProductId==shoppingCart.ProductId);
 
             if (cartFromDb !=null)
             {
-                //Shopping cart exists. update count
-                cartFromDb.Count += shoppingCart.Count;
+                //Shopping cart exists.  // If the product exists in cart, increase the quantity
+                cartFromDb.Count = shoppingCart.Count;
                 _unitOfWork.shoppingCartRepository.Update(cartFromDb);
 
             }
             else
             {
-                //add new cart record
+                // If it's a new product, add it to the cart
                 _unitOfWork.shoppingCartRepository.Add(shoppingCart);
             }
-                _unitOfWork.shoppingCartRepository.Add(shoppingCart);
-
+               
+            // Save changes to the database
             _unitOfWork.Save();
+            // Redirect to the Index view (usually the product listing)
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()
