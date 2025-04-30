@@ -119,4 +119,25 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // Waits until the DOM is fully loaded before executing the script
+        $(document).ready(function () {
+            // Adds a change event listener to the '#Input_Role' dropdown
+            $('#Input_Role').change(function () {
+                // Gets the text of the currently selected option in the role dropdown
+                var SelectedRole = $('#Input_Role Option:selected').text();
+
+                // If the selected role is 'Company', show the '#Input_CompanyId' field
+                if (SelectedRole == 'Company') {
+                    $('#Input_CompanyId').show();
+                }
+                // If any other role is selected, hide the company input field
+                else {
+                    $('#Input_CompanyId').hide();
+                }
+            });
+        });
+    </script>
+
 }
