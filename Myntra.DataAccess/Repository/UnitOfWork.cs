@@ -13,11 +13,13 @@ namespace Myntra.DataAccess.Repository
         private readonly ApplicationDbContext _context;
         public ICategoryRepository categoryRepository { get; private set; }
         public IProductRepository productRepository { get; private set; }
+        public ICompanyRepository companyRepository { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context =context;
             categoryRepository = new CategoryRepository(_context);
             productRepository = new ProductRepository(_context);
+            companyRepository = new CompanyRepository(_context);
         }
         
 
