@@ -14,12 +14,15 @@ namespace Myntra.DataAccess.Repository
         public ICategoryRepository categoryRepository { get; private set; }
         public IProductRepository productRepository { get; private set; }
         public ICompanyRepository companyRepository { get; private set; }
+        public IShoppingCartRepository shoppingCartRepository { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context =context;
             categoryRepository = new CategoryRepository(_context);
             productRepository = new ProductRepository(_context);
             companyRepository = new CompanyRepository(_context);
+            shoppingCartRepository =new ShoppingCartRepository(_context);
+
         }
         
 

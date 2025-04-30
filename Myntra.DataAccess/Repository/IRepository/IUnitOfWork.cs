@@ -12,6 +12,7 @@ namespace Myntra.DataAccess.Repository.IRepository
         IProductRepository productRepository { get; }
 
         ICompanyRepository companyRepository { get; }
+        IShoppingCartRepository shoppingCartRepository { get; }
         void Save();
     }
 
