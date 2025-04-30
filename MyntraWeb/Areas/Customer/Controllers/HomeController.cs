@@ -23,8 +23,14 @@ namespace MyntraWeb.Areas.Customer.Controllers
         }
         public IActionResult Details(int productId)
         {
-           Product Product = _unitOfWork.productRepository.Get(u=>u.Id== productId, includeProperties: "category");
-            return View(Product);
+            ShoppingCart Cart = new ()
+            {
+                Product = _unitOfWork.productRepository.Get(u => u.Id == productId, includeProperties: "category"),
+                Count = 1,
+                ProductId = productId
+            };
+          
+            return View(Cart);
         }
         public IActionResult Privacy()
         {

@@ -25,7 +25,7 @@ IApplicationUserRepository is an interface that defines additional operations sp
 
         public void Update(ApplicationUser obj)
         {
-            _context.Categories.Update(obj);
+            _context.ApplicationUsers.Update(obj);
         }
     }
 }
