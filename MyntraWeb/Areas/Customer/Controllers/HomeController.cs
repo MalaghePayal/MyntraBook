@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Myntra.DataAccess.Repository.IRepository;
 using Myntra.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace MyntraWeb.Areas.Customer.Controllers
 {
@@ -31,6 +33,17 @@ namespace MyntraWeb.Areas.Customer.Controllers
             };
           
             return View(Cart);
+        }
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(ShoppingCart shoppingCart )
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var UserId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            shoppingCart.ApplicationUserId = UserId;
+            _unitOfWork.shoppingCartRepository.Add(shoppingCart);
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()
         {
