@@ -41,7 +41,23 @@ namespace MyntraWeb.Areas.Customer.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var UserId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             shoppingCart.ApplicationUserId = UserId;
-            _unitOfWork.shoppingCartRepository.Add(shoppingCart);
+
+            ShoppingCart cartFromDb = _unitOfWork.shoppingCartRepository.Get(u=>u.ApplicationUserId==UserId && u.ProductId==shoppingCart.ProductId);
+
+            if (cartFromDb !=null)
+            {
+                //Shopping cart exists. update count
+                cartFromDb.Count += shoppingCart.Count;
+                _unitOfWork.shoppingCartRepository.Update(cartFromDb);
+
+            }
+            else
+            {
+                //add new cart record
+                _unitOfWork.shoppingCartRepository.Add(shoppingCart);
+            }
+                _unitOfWork.shoppingCartRepository.Add(shoppingCart);
+
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
