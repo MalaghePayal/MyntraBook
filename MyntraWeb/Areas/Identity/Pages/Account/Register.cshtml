@@ -17,6 +17,12 @@
                 <label asp-for="Input.Email">Email</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
+            <div class="form-floating mb-3 col-md-6">
+                <input asp-for="Input.Name" class="form-control" />
+                <label asp-for="Input.Name">Name</label>
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+
             <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label asp-for="Input.Password">Password</label>
@@ -26,6 +32,31 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+                <input asp-for="Input.StreetAdress" class="form-control"   />
+                <label asp-for="Input.StreetAdress">Street Adress</label>
+                <span asp-validation-for="Input.StreetAdress" class="text-danger"></span>
+            </div> 
+            <div class="form-floating mb-3 col-md-6">
+                <input asp-for="Input.City" class="form-control" />
+                <label asp-for="Input.City">City</label>
+                <span asp-validation-for="Input.City" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+                <input asp-for="Input.State" class="form-control" />
+                <label asp-for="Input.State">State</label>
+                <span asp-validation-for="Input.State" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+                <input asp-for="Input.PostalCode" class="form-control" />
+                <label asp-for="Input.PostalCode">Postal Code</label>
+                <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <label asp-for="Input.PhoneNumber">Phone Number</label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
             @* 
         This dropdown allows the admin or registering user to select a role for the new account. 
