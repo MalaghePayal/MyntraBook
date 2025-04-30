@@ -15,7 +15,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Myntra.Models;
@@ -102,11 +104,21 @@ namespace MyntraWeb.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            // Holds the selected role from the dropdown on the registration page.
+            // If left null or empty, default role will be assigned during registration.
+            public string? Role { get; set; }
+
+            // Contains the list of available roles from the RoleManager.
+            // This list is used to populate the dropdown on the registration UI.
+            [ValidateNever] // Prevents model validation on this list since it's populated server-side
+            public IEnumerable<SelectListItem> RolesList  { get; set; }
         }
 
 
         public async Task OnGetAsync(string returnUrl = null)
-        {
+        {// Create predefined roles in the system if they do not already exist.
+         // This ensures that the RolesList dropdown will have options to display.
             if (!_roleManager.RoleExistsAsync(SD.Role_User_Customer).GetAwaiter().GetResult())
             {
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Customer)).GetAwaiter().GetResult();
@@ -114,6 +126,16 @@ namespace MyntraWeb.Areas.Identity.Pages.Account
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Company)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Employee)).GetAwaiter().GetResult();
             }
+            // Populate the RolesList property with available roles.
+             // Each role will appear as a selectable item in the registration page dropdown.
+            Input = new()
+            {
+                RolesList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
+                {
+                    Text = i,
+                     Value = i
+                })
+            };
 
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -135,7 +157,18 @@ namespace MyntraWeb.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var userId = await _userManager.GetUserIdAsync(user);
+                    // If a role was selected by the user during registration,
+                    // assign that role to the user after successful creation.
+                    // Otherwise, assign the default Role_User_Customer to ensure access level.
+                    if (!String.IsNullOrEmpty(Input.Role))
+                    {
+                        await _userManager.AddToRoleAsync(user, Input.Role);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user,SD.Role_User_Customer);
+                    }
+                        var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
