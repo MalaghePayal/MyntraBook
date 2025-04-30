@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Myntra.DataAccess.Data;
@@ -6,12 +7,14 @@ using Myntra.DataAccess.Repository;
 using Myntra.DataAccess.Repository.IRepository;
 using Myntra.Models;
 using Myntra.Models.ViewModels;
+using Myntra.Utility;
 using System.Collections.Generic;
 using System.IO;
 
 namespace MyntraWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles =SD.Role_User_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
