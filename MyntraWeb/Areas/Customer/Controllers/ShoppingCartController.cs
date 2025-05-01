@@ -36,8 +36,8 @@ namespace MyntraWeb.Areas.Customer.Controllers
             foreach (var item in shoppingCartVM.ShoppingCartList)
             {
 
-                double price = GetPriceBasedOnQuantity(item);
-                shoppingCartVM.OrderTotal+= (price*item.Count);
+                item.Price = GetPriceBasedOnQuantity(item);
+                shoppingCartVM.OrderTotal+= (item.Price * item.Count);
             }
 
             return View(shoppingCartVM);
