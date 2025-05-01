@@ -33,7 +33,36 @@ namespace MyntraWeb.Areas.Customer.Controllers
                 ShoppingCartList = _unitOfWork.shoppingCartRepository.GetAll(u => u.ApplicationUserId == UserId,
                 includeProperties:"Product")
             };
+            foreach (var item in shoppingCartVM.ShoppingCartList)
+            {
+
+                double price = GetPriceBasedOnQuantity(item);
+                shoppingCartVM.OrderTotal+= (price*item.Count);
+            }
+
             return View(shoppingCartVM);
+        }
+
+        private double GetPriceBasedOnQuantity(ShoppingCart shoppingCart)
+        {
+
+            if (shoppingCart.Count<=50)
+            {
+                return shoppingCart.Product.Price1to50;
+
+            }
+            else
+            {
+                if (shoppingCart.Count<100)
+                {
+                    return shoppingCart.Product.Price50to100;
+
+                }
+                else
+                {
+                    return shoppingCart.Product.Price100;
+                }
+            }
         }
     }
 }
