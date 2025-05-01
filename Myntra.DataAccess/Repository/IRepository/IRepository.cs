@@ -11,7 +11,7 @@ namespace Myntra.DataAccess.Repository.IRepository
     {
         //T will be Category for any other generic model on which we want to perform CRUD
         IEnumerable<T> GetAll(string? includeProperties = null);
-        T Get(Expression<Func<T,bool>> filter, string? includeProperties = null);
+        T Get(Expression<Func<T,bool>> filter, string? includeProperties = null,bool tracked =false);
         void Add(T entity);
  
         void Remove(T entity);
