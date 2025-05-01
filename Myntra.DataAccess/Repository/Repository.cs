@@ -52,10 +52,13 @@ namespace Myntra.DataAccess.Repository
         }
 
         
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
-            query = query.Where(filter);
+            if (filter!=null)
+            {
+                query = query.Where(filter);
+            }
             // Include the related properties correctly
             if (!string.IsNullOrEmpty(includeProperties))
             {
