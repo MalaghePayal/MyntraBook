@@ -56,7 +56,7 @@ namespace MyntraWeb.Areas.Customer.Controllers
                 // If it's a new product, add it to the cart
                 _unitOfWork.shoppingCartRepository.Add(shoppingCart);
             }
-               
+            TempData["Success"] = "Cart Updated Successfully";
             // Save changes to the database
             _unitOfWork.Save();
             // Redirect to the Index view (usually the product listing)
