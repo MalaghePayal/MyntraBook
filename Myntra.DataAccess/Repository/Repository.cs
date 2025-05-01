@@ -51,23 +51,11 @@ namespace Myntra.DataAccess.Repository
             return query.FirstOrDefault();
         }
 
-        //public IEnumerable<T> GetAll(string? includeProperties =null)
-        //{
-        //    IQueryable<T> query = dbSet;
-        //    if (string.IsNullOrEmpty(includeProperties))
-        //    {
-        //        foreach(var includeProp in 
-        //            includeProperties.Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries))
-        //        {
-        //            query = query.Include(includeProp);
-        //        }
-        //    }
-        //    return query.ToList();
-        //}
-        public IEnumerable<T> GetAll(string? includeProperties = null)
+        
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
-
+            query = query.Where(filter);
             // Include the related properties correctly
             if (!string.IsNullOrEmpty(includeProperties))
             {
