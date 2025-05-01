@@ -37,7 +37,7 @@ namespace MyntraWeb.Areas.Customer.Controllers
             {
 
                 item.Price = GetPriceBasedOnQuantity(item);
-                shoppingCartVM.OrderTotal += (item.Price * item.Count);
+                shoppingCartVM.OrderHeader.OrderTotal += (item.Price * item.Count);
             }
 
             return View(shoppingCartVM);
