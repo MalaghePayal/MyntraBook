@@ -14,7 +14,7 @@ namespace Myntra.DataAccess.Repository.IRepository
         ICompanyRepository companyRepository { get; }
         IShoppingCartRepository shoppingCartRepository { get; }
 
-
+        IApplicationUserRepository applicationUserRepository { get; }
         IOrderHeaderRepository orderHeaderRepository { get; }
         IOrderDetailRepository orderDetailRepository { get; }
 

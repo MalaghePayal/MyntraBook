@@ -31,7 +31,8 @@ namespace MyntraWeb.Areas.Customer.Controllers
             shoppingCartVM = new()
             {
                 ShoppingCartList = _unitOfWork.shoppingCartRepository.GetAll(u => u.ApplicationUserId == UserId,
-                includeProperties: "Product")
+                includeProperties: "Product"),
+                OrderHeader=new()
             };
             foreach (var item in shoppingCartVM.ShoppingCartList)
             {
@@ -42,6 +43,43 @@ namespace MyntraWeb.Areas.Customer.Controllers
 
             return View(shoppingCartVM);
         }
+
+
+        public IActionResult Summary()
+        {
+            // Step 1: Retrieve the current logged-in user's ID
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var UserId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            // Step 2: Initialize ViewModel with shopping cart items and empty order header
+            shoppingCartVM = new()
+            {
+                ShoppingCartList = _unitOfWork.shoppingCartRepository.GetAll(u => u.ApplicationUserId == UserId,
+                includeProperties: "Product"),
+                OrderHeader =new()
+            }; 
+            // Step 3: Populate OrderHeader with current user's profile details
+            shoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.applicationUserRepository.Get(u => u.Id == UserId);
+            
+            shoppingCartVM.OrderHeader.Name = shoppingCartVM.OrderHeader.ApplicationUser.Name;
+            shoppingCartVM.OrderHeader.PhoneNumber = shoppingCartVM.OrderHeader.ApplicationUser.PhoneNumber;
+
+            shoppingCartVM.OrderHeader.StreetAddress = shoppingCartVM.OrderHeader.ApplicationUser.StreetAdress;
+            shoppingCartVM.OrderHeader.City = shoppingCartVM.OrderHeader.ApplicationUser.City;
+            shoppingCartVM.OrderHeader.State = shoppingCartVM.OrderHeader.ApplicationUser.State;
+            shoppingCartVM.OrderHeader.PostalCode = shoppingCartVM.OrderHeader.ApplicationUser.PostalCode;
+
+            // Step 4: Calculate OrderTotal by iterating over cart items and computing price
+            foreach (var item in shoppingCartVM.ShoppingCartList)
+            {
+
+                item.Price = GetPriceBasedOnQuantity(item);
+                shoppingCartVM.OrderHeader.OrderTotal += (item.Price * item.Count);
+            }
+            // Step 5: Return the populated ViewModel to the summary view
+            return View(shoppingCartVM);
+        }
+
 
         private double GetPriceBasedOnQuantity(ShoppingCart shoppingCart)
         {
