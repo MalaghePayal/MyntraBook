@@ -13,6 +13,11 @@ namespace Myntra.DataAccess.Repository.IRepository
 
         ICompanyRepository companyRepository { get; }
         IShoppingCartRepository shoppingCartRepository { get; }
+
+
+        IOrderHeaderRepository orderHeaderRepository { get; }
+        IOrderDetailRepository orderDetailRepository { get; }
+
         void Save();
     }
 
