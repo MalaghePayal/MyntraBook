@@ -3,6 +3,7 @@ using Myntra.DataAccess.Repository.IRepository;
 
 namespace MyntraWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
