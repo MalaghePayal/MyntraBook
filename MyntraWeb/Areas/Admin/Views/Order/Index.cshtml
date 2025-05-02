@@ -1,13 +1,11 @@
-﻿@model List<OrderVM>
-<div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+﻿@model List<Myntra.Models.ViewModels.OrderVM>
 
+<div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
     <div class="row">
         <div class="col-12 text-center">
             <h2 class="text-dark py-2">Order List</h2>
-
         </div>
     </div>
-
 </div>
 
 <div class="card-body p-4">
@@ -20,8 +18,23 @@
                 <th>Email</th>
                 <th>Status</th>
                 <th>Total</th>
-                <th></th>
+              
             </tr>
         </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.OrderHeader.Id</td>
+                    <td>@item.OrderHeader.Name</td>
+                    <td>@item.OrderHeader.PhoneNumber</td>
+                    <td>@item.OrderHeader.ApplicationUser.Email</td>
+                    <td>@item.OrderHeader.OrderStatus</td>
+                    <td>@item.OrderHeader.OrderTotal.ToString("C")</td>
+                    
+                    
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
