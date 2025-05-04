@@ -18,6 +18,7 @@
                 <th>Email</th>
                 <th>Status</th>
                 <th>Total</th>
+                <th>Order Detail</th>
               
             </tr>
         </thead>
@@ -31,7 +32,9 @@
                     <td>@item.OrderHeader.ApplicationUser.Email</td>
                     <td>@item.OrderHeader.OrderStatus</td>
                     <td>@item.OrderHeader.OrderTotal.ToString("C")</td>
-                    
+                    <td>
+                        <a><a asp-controller="Order" asp-action="Details" asp-route-orderId="@item.OrderHeader.Id" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a></a>
+                    </td>
                     
                 </tr>
             }

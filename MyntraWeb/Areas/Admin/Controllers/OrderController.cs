@@ -36,5 +36,16 @@ namespace MyntraWeb.Areas.Admin.Controllers
 
             return View(orderVMList);
         }
+        public IActionResult Details(int orderId)
+        {
+            OrderVM orderVM= new()
+                {
+                OrderHeader = _unitOfWork.orderHeaderRepository.Get(u => u.Id == orderId, includeProperties:"ApplicationUser"),
+                OrderDetail = _unitOfWork.orderDetailRepository.GetAll(u=>u.OrderHeader.Id==orderId,includeProperties:"Product")
+              
+
+            };
+            return View(orderVM);
+        }
     }
 }
